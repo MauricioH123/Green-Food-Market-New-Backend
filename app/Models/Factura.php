@@ -13,4 +13,12 @@ class Factura extends Model
         'cliente_id', // clave foranea a la tabla clientes
         'fecha'
     ];
+
+    public function cliente(){
+        return  $this->belongsTo(Cliente::class,'cliente_id');
+    }
+
+    public function detalleFactura(){
+        return $this->hasMany(DetalleFactura::class,'factura_id');
+    }
 }

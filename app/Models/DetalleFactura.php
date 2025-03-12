@@ -16,4 +16,8 @@ class DetalleFactura extends Model
         'cantidad_facturada',
         'precio_unitario',
     ];
+
+    public function factura(){
+        return $this->belongsTo(Factura::class,'factura_id');
+    }
 }
