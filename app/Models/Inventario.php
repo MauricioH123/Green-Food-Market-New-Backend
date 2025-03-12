@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Inventario extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'producto_id', // clave foranea de producto
+         'cantidad',
+    ];
 }

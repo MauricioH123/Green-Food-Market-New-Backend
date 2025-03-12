@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Factura extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'cliente_id', // clave foranea a la tabla clientes
+        'fecha'
+    ];
 }

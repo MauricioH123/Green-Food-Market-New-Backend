@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleFactura extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'factura_id', // clave foranea factura
+        'producto_id', // clave foranea producto
+        'cantidad',
+        'cantidad_facturada',
+        'precio_unitario',
+    ];
 }
