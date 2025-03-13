@@ -13,4 +13,8 @@ class Inventario extends Model
         'producto_id', // clave foranea de producto
          'cantidad',
     ];
+
+    public function producto(){
+        return $this->belongsTo(Producto::class, 'producto_id');
+    }
 }

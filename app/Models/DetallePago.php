@@ -14,4 +14,12 @@ class DetallePago extends Model
         'tipo_pago_id', // clave foranea tipo de pago 
         'estado',
     ];
+
+    public function factura(){
+        return $this->belongsTo(Factura::class,'factura_id');
+    }
+
+    public function tipoPago(){
+        return $this->belongsTo(TipoPago::class,'tipo_pago_id');
+    }
 }

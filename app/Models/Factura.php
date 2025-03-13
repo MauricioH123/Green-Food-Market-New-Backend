@@ -21,4 +21,8 @@ class Factura extends Model
     public function detalleFactura(){
         return $this->hasMany(DetalleFactura::class,'factura_id');
     }
+
+    public function detallePago(){
+        return $this->hasMany(DetallePago::class, 'factura_id');
+    }
 }

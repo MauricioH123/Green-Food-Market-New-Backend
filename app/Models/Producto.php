@@ -16,4 +16,16 @@ class Producto extends Model
         'descripcion',
         'imagen',
     ];
+
+    public function entrada(){
+        return $this->hasMany(Entrada::class, 'producto_id');
+    }
+
+    public function inventario(){
+        return $this->hasOne(Inventario::class, 'producto_id');
+    }
+
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class, 'proveedor_id');
+    }
 }

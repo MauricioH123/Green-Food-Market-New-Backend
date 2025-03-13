@@ -15,4 +15,8 @@ class Entrada extends Model
         'precio_entrada',
         'fecha_entrada',
     ];
+
+    public function producto(){
+        return $this->belongsTo(Producto::class, 'producto_id');
+    }
 }

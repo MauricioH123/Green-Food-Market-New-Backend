@@ -12,4 +12,6 @@ class MotivoDevolucion extends Model
     protected $fillable = [
         'motivo',
     ];
+
+    
 }

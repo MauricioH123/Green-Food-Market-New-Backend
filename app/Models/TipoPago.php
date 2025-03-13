@@ -12,4 +12,8 @@ class TipoPago extends Model
     protected $fillable = [
         'tipo_pago'
     ];
+
+    public function detallePago(){
+        return $this->hasOne(DetallePago::class, 'tipo_pago_id');
+    }
 }

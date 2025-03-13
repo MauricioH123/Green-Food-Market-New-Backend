@@ -17,4 +17,6 @@ class Devolucion extends Model
         'cantidad',
         'precio'
     ];
+
+    // FALTAN LAS RELACIONES 
 }
