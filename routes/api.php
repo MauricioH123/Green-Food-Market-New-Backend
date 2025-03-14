@@ -20,5 +20,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::get('/usuarios',[ClienteController::class, 'listarTodosLosClientes']);
-Route::post('/usuariocrear', [ClienteController::class, 'agregarCliente']);
+Route::get('/cliente',[ClienteController::class, 'listarTodosLosClientes']);
+Route::post('/clientecrear', [ClienteController::class, 'agregarCliente']);
+Route::put('/clienteActualizar/{id}', [ClienteController::class, 'actualizarCliente']);
+Route::get('/cliente/{id}', [ClienteController::class, 'obtenerCliente']);
+Route::delete('/clienteEliminar/{id}', [ClienteController::class, 'eliminarCliente']);
