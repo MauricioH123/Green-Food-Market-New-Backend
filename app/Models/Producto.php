@@ -13,8 +13,6 @@ class Producto extends Model
         'proveedor_id', // clave foranea de proveedor
         'nombre_producto',
         'precio_venta',
-        'descripcion',
-        'imagen',
     ];
 
     public function entrada(){
