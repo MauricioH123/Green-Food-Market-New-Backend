@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('detalle_pagos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('factura_id')->constrained('facturas')->onDelete('cascade');
+            $table->foreignId('tipo_pago_id')->constrained('tipo_pagos')->onDelete('cascade');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

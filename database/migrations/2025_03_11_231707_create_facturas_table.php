@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
+            $table->date('fecha');
             $table->timestamps();
         });
     }

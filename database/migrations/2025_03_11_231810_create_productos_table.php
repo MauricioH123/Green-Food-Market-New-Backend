@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('proveedor_id')->constrained('proveedors')->onDelete('cascade');
+            $table->string('nombre_producto');
+            $table->decimal('precio_venta',12, 3);
             $table->timestamps();
         });
     }
