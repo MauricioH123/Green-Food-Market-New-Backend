@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FacturaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,13 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// RUTAS PARA CLIENTE
 Route::get('/cliente',[ClienteController::class, 'listarTodosLosClientes']);
 Route::post('/clientecrear', [ClienteController::class, 'agregarCliente']);
 Route::put('/clienteActualizar/{id}', [ClienteController::class, 'actualizarCliente']);
 Route::get('/cliente/{id}', [ClienteController::class, 'obtenerCliente']);
 Route::delete('/clienteEliminar/{id}', [ClienteController::class, 'eliminarCliente']);
+
+// RUTAS PARA FACTURAS
+
+Route::get('/factura', [FacturaController::class, 'listarFacturas']);
