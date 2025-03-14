@@ -21,7 +21,7 @@ class ClienteFactory extends Factory
     {
         return [
             'nombre' => $this->faker->name(),
-            'numero_celular' => $this->faker->phoneNumber(),
+            'celular' => $this->faker->phoneNumber(),
             'correo' => $this->faker->email(),
             'direccion' => $this->faker->address(),
         ];

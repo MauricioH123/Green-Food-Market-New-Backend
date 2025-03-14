@@ -21,3 +21,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::get('/usuarios',[ClienteController::class, 'listarTodosLosClientes']);
+Route::post('/usuariocrear', [ClienteController::class, 'agregarCliente']);
