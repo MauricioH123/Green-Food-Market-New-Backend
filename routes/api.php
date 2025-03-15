@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedorController;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +41,6 @@ Route::get('/productos', [ProductoController::class, 'listarPorductos']);
 Route::post('/producto', [ProductoController::class, 'crearProducto']);
 Route::put('/producto/{id}',[ProductoController::class, 'actualizarPorducto']);
 Route::delete('/producto/{id}',[ProductoController::class, 'eliminarProducto']);
+
+// RUTA PARA PROVEEDOR
+Route::get('/proveedores', [ProveedorController::class, 'listarProveedores']);
