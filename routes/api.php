@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,8 @@ Route::delete('/clienteEliminar/{id}', [ClienteController::class, 'eliminarClien
 Route::get('/factura', [FacturaController::class, 'listarFacturas']);
 Route::post('/facturaCrear', [FacturaController::class, 'crearFactura']);
 Route::delete('/facturaEliminar/{id}', [FacturaController::class, 'eliminarFactura']);
+
+// RUTAS DE PRODUCTOS
+Route::get('/productos', [ProductoController::class, 'listarPorductos']);
+Route::post('/producto', [ProductoController::class, 'crearProducto']);
+Route::put('/producto/{id}',[ProductoController::class, 'actualizarPorducto']);
