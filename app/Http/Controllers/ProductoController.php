@@ -72,4 +72,10 @@ class ProductoController extends Controller
             return response()->json('Error al actualizar el producto');
         }
     }
+
+    public function eliminarProducto($id){
+        $producto = Producto::find($id);
+        $producto->delete();
+        return response()->json('Producto eliminado', 200);
+    }
 }

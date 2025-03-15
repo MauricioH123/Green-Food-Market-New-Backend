@@ -38,3 +38,4 @@ Route::delete('/facturaEliminar/{id}', [FacturaController::class, 'eliminarFactu
 Route::get('/productos', [ProductoController::class, 'listarPorductos']);
 Route::post('/producto', [ProductoController::class, 'crearProducto']);
 Route::put('/producto/{id}',[ProductoController::class, 'actualizarPorducto']);
+Route::delete('/producto/{id}',[ProductoController::class, 'eliminarProducto']);
