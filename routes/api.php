@@ -30,3 +30,5 @@ Route::delete('/clienteEliminar/{id}', [ClienteController::class, 'eliminarClien
 // RUTAS PARA FACTURAS
 
 Route::get('/factura', [FacturaController::class, 'listarFacturas']);
+Route::post('/facturaCrear', [FacturaController::class, 'crearFactura']);
+Route::delete('/facturaEliminar/{id}', [FacturaController::class, 'eliminarFactura']);
