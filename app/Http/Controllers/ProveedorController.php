@@ -11,7 +11,8 @@ use App\Models\Proveedor;
 class ProveedorController extends Controller
 {
 
-    protected function validaciones($request){
+    protected function validaciones($request)
+    {
         $request->validate([
             'nombre_proveedor' => 'required|string'
         ]);
@@ -19,24 +20,26 @@ class ProveedorController extends Controller
 
 
 
-    public function listarProveedores(){
+    public function listarProveedores()
+    {
 
-        try{
+        try {
             $proveedores = DB::table('proveedors')->get();
             return response()->json([
                 // 'message' => 'Listado de los proveedores',
                 $proveedores
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error al listar los proveedores'
             ], $e->getMessage());
         }
     }
 
-    public function crearProveedor(Request $request){
+    public function crearProveedor(Request $request)
+    {
 
-        try{
+        try {
 
             $this->validaciones($request);
 
@@ -48,8 +51,7 @@ class ProveedorController extends Controller
                 'message' => 'Proveedor creado exitosamente',
                 $proveedor
             ], 200);
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'No se puedo crear el proveedor',
                 'error' => $e->getMessage()
@@ -57,28 +59,46 @@ class ProveedorController extends Controller
         }
     }
 
-    public function actualizarProveedor(Request $request, $id){
+    public function actualizarProveedor(Request $request, $id)
+    {
 
-        try{
+        try {
             $this->validaciones($request);
 
             $proveedor = Proveedor::find($id);
-    
-            $proveedor -> nombre_proveedor = $request->nombre_proveedor;
+
+            $proveedor->nombre_proveedor = $request->nombre_proveedor;
 
             $proveedor->save();
-    
+
             return response()->json([
                 'message' => 'Proveedor actulizado',
                 $proveedor
             ], 200);
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error al actualizar el proveedor',
                 'error' => $e->getMessage()
             ], 500);
         }
-    
+    }
+
+    public function eliminarProveedor($id)
+    {
+
+        try {
+            $proveedor = Proveedor::find($id);
+
+            $proveedor->delete();
+
+            return response()->json([
+                'message' => "Proveedor eliminado",
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error al eliminar el proveedor',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -46,3 +46,4 @@ Route::delete('/producto/{id}',[ProductoController::class, 'eliminarProducto']);
 Route::get('/proveedores', [ProveedorController::class, 'listarProveedores']);
 Route::post('/proveedor', [ProveedorController::class, 'crearProveedor']);
 Route::put('/proveedor/{id}', [ProveedorController::class, 'actualizarProveedor']);
+Route::delete('/proveedor/{id}', [ProveedorController::class, 'eliminarProveedor']);
