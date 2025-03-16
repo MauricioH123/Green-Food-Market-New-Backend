@@ -4,6 +4,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\TipoPagoController;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +48,7 @@ Route::get('/proveedores', [ProveedorController::class, 'listarProveedores']);
 Route::post('/proveedor', [ProveedorController::class, 'crearProveedor']);
 Route::put('/proveedor/{id}', [ProveedorController::class, 'actualizarProveedor']);
 Route::delete('/proveedor/{id}', [ProveedorController::class, 'eliminarProveedor']);
+
+// RUTAS TIPO DE PAGO
+
+Route::get('/pago', [TipoPagoController::class, 'listarTipoPago']);

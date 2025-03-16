@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\TipoPago;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +25,8 @@ class DatabaseSeeder extends Seeder
             ClienteSeeder::class,
             FacturaSeeder::class,
             ProveedorSeeder::class,
-            ProductoSeeder::class
+            ProductoSeeder::class,
+            TipoPagoSeeder::class
         ]);
     }
 }
