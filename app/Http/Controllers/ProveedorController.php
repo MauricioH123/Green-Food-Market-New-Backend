@@ -55,6 +55,30 @@ class ProveedorController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
 
+    public function actualizarProveedor(Request $request, $id){
+
+        try{
+            $this->validaciones($request);
+
+            $proveedor = Proveedor::find($id);
+    
+            $proveedor -> nombre_proveedor = $request->nombre_proveedor;
+
+            $proveedor->save();
+    
+            return response()->json([
+                'message' => 'Proveedor actulizado',
+                $proveedor
+            ], 200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Error al actualizar el proveedor',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    
     }
 }
