@@ -10,7 +10,7 @@ class TipoPago extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tipo_pago'
+        'tipo'
     ];
 
     public function detallePago(){
