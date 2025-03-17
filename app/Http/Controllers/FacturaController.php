@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetallePago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Factura;
@@ -30,6 +31,8 @@ class FacturaController extends Controller
                 'productos.*.producto_id' => 'required|integer',
                 'productos.*.cantidad' => 'required|integer|min:1',
                 'productos.*.precio_unitario' => 'required|numeric|min:0',
+                'tipo_pago_id' => 'required|integer',
+                'estado' => 'required|boolean'
             ]);
 
             $factura = Factura::create([
@@ -48,10 +51,17 @@ class FacturaController extends Controller
                 ]);
             }
 
+            $detallePago = DetallePago::create([
+                'factura_id' => $factura->id,
+                'tipo_pago_id' => $request->tipo_pago_id,
+                'estado' => $request->estado
+            ]);
+
             return response()->json([
                 'message' => 'Factura creada correctamente',
                 'factura' => $factura,
-                'detalleFactura' => $detalleFactura
+                'detalleFactura' => $detalleFactura,
+                'tipo_pago' => $detallePago
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
