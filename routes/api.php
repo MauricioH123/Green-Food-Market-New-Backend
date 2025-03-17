@@ -52,3 +52,5 @@ Route::delete('/proveedor/{id}', [ProveedorController::class, 'eliminarProveedor
 // RUTAS TIPO DE PAGO
 Route::get('/pago', [TipoPagoController::class, 'listarTipoPago']);
 Route::post('/pago', [TipoPagoController::class, 'crearTipoPago']);
+Route::put('/pago/{id}', [TipoPagoController::class, 'actualizarTipoPago']);
+Route::delete('/pago/{id}', [TipoPagoController::class, 'eliminarTipoPago']);

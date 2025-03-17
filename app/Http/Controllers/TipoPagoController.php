@@ -43,5 +43,42 @@ class TipoPagoController extends Controller
         }
     }
 
+    public function actualizarTipoPago(Request $request, $id){
+        try{
+            $this->validacion($request);
+            $tipoPago = TipoPago::find($id);
+            $tipoPago->tipo = $request->tipo;
 
+            $tipoPago->save();
+
+            return response()->json([
+                'message' => 'El tipo de pago se a actualizado',
+                $tipoPago
+            ], 200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'No se puedo actualizar el tipo de pago',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function eliminarTipoPago($id){
+        try{
+            $tipoPago = TipoPago::find($id);
+
+            $tipoPago->delete();
+
+            return response()->json([
+                'message' => 'Tipo de pago eliminado exitosamente'
+            ], 200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'No se puedo eliminar el tipo de pago',
+                'error' => $e->getMessage()
+            ],500);
+        }
+    }
 }
