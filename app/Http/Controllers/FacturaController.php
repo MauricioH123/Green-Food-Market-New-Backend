@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Factura;
 use App\Models\DetalleFactura;
-
+use Exception;
 class FacturaController extends Controller
 {
 
@@ -63,7 +63,7 @@ class FacturaController extends Controller
                 'detalleFactura' => $detalleFactura,
                 'tipo_pago' => $detallePago
             ], 201);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error al crear la factura',
                 'error' => $e->getMessage()
@@ -79,7 +79,7 @@ class FacturaController extends Controller
             return response()->json([
                 'message' => 'Factura eliminada correctamente'
             ], 200);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error al eliminar la factura',
                 'error' => $e->getMessage()

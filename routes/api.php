@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DetallePagoController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
@@ -54,3 +55,6 @@ Route::get('/pago', [TipoPagoController::class, 'listarTipoPago']);
 Route::post('/pago', [TipoPagoController::class, 'crearTipoPago']);
 Route::put('/pago/{id}', [TipoPagoController::class, 'actualizarTipoPago']);
 Route::delete('/pago/{id}', [TipoPagoController::class, 'eliminarTipoPago']);
+
+// RUTA DETALLE PAGO
+Route::put('/detallePago/{factura_id}', [DetallePagoController::class, 'actualizarDetalleFactura']);
