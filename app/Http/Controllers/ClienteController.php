@@ -9,9 +9,10 @@ use App\Models\Cliente;
 class ClienteController extends Controller
 {
     // este metodo es para listar todos los clientes
-    public function listarTodosLosClientes(){
+    public function listarTodosLosClientes(Request $request){
+        $perPage = $request->query('per_page', 10);
         // obtencion de todos los clientes
-        $clientes = DB::table('clientes')->get();
+        $clientes = DB::table('clientes')->paginate($perPage);
         return response()->json($clientes);
     }
 

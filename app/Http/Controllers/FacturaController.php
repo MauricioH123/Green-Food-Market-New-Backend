@@ -11,9 +11,10 @@ use Exception;
 class FacturaController extends Controller
 {
 
-    public  function listarFacturas()
+    public  function listarFacturas(Request $request)
     {
-        $facturas = DB::table('facturas')->get();
+        $perPage = $request->query('per_page', 10);
+        $facturas = DB::table('facturas')->paginate($perPage);
         return response()->json($facturas, 200);
     }
 

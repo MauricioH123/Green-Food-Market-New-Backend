@@ -20,11 +20,12 @@ class ProveedorController extends Controller
 
 
 
-    public function listarProveedores()
+    public function listarProveedores(Request $request)
     {
 
         try {
-            $proveedores = DB::table('proveedors')->get();
+            $perPage = $request->query('per_page', 10);
+            $proveedores = DB::table('proveedors')->paginate($perPage);
             return response()->json([
                 // 'message' => 'Listado de los proveedores',
                 $proveedores

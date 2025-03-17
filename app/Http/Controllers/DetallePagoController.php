@@ -12,8 +12,9 @@ class DetallePagoController extends Controller
 {
 
 
-    public function listarEstadosDeFacturas(){
-        $estados = DB::table('detalle_pagos')->get();
+    public function listarEstadosDeFacturas(Request $request){
+        $perPage = $request->query('per_page', 10);
+        $estados = DB::table('detalle_pagos')->paginate($perPage);
         return response()->json([
             $estados
         ], 200);
