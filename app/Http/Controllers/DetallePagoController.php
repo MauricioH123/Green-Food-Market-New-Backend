@@ -6,9 +6,20 @@ use App\Models\DetalleFactura;
 use App\Models\DetallePago;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DetallePagoController extends Controller
 {
+
+
+    public function listarEstadosDeFacturas(){
+        $estados = DB::table('detalle_pagos')->get();
+        return response()->json([
+            $estados
+        ], 200);
+    }
+
+
     public function actualizarDetalleFactura(Request $request, $factura_id)
 {
     try {

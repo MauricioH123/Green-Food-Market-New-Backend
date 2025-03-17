@@ -58,3 +58,4 @@ Route::delete('/pago/{id}', [TipoPagoController::class, 'eliminarTipoPago']);
 
 // RUTA DETALLE PAGO
 Route::put('/detallePago/{factura_id}', [DetallePagoController::class, 'actualizarDetalleFactura']);
+Route::get("/detallePago", [DetallePagoController::class, "listarEstadosDeFacturas"]);
