@@ -29,7 +29,9 @@ class EntradaController extends Controller
         try {
 
             $perPage = $request->query('per_page', 10);
-            $entradas = DB::table('entradas')->paginate($perPage);
+            $entradas = Entrada::with('proveedor:id,nombre_proveedor')
+            ->select( 'proveedor_id', 'fecha_entrada')
+            ->paginate($perPage);
 
             return response()->json($entradas, 200);
         } catch (Exception $e) {
@@ -60,6 +62,7 @@ class EntradaController extends Controller
         }
     }
 
-    
+
+
 
 }
