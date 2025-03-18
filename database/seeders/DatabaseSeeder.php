@@ -26,7 +26,9 @@ class DatabaseSeeder extends Seeder
             FacturaSeeder::class,
             ProveedorSeeder::class,
             ProductoSeeder::class,
-            TipoPagoSeeder::class
+            TipoPagoSeeder::class,
+            EntradaSeeder::class,
+            DetalleEntradaSeeder::class
         ]);
     }
 }

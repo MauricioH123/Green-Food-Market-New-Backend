@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DetallePagoController;
+use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProveedorController;
@@ -59,3 +60,6 @@ Route::delete('/pago/{id}', [TipoPagoController::class, 'eliminarTipoPago']);
 // RUTA DETALLE PAGO
 Route::put('/detallePago/{factura_id}', [DetallePagoController::class, 'actualizarDetalleFactura']);
 Route::get("/detallePago", [DetallePagoController::class, "listarEstadosDeFacturas"]);
+
+// RUTA ENTRADAS
+Route::get('/entrada', [EntradaController::class, 'listarEntradas']);
