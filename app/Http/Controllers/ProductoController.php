@@ -18,7 +18,7 @@ class ProductoController extends Controller
     }
 
     // Metodo para extraer todos los productos
-    public function listarPorductos(Request $request)
+    public function listarProductos(Request $request)
     {
         $perPage = $request->query('per_page', 10);
         $productos = DB::table('productos')->paginate($perPage);

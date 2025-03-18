@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetalleEntrada;
+use App\Models\Entrada;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EntradaController extends Controller
 {
-    protected  function validaciones(Request $request){
+    protected  function validaciones(Request $request)
+    {
         $request->validate([
             'proveedor_id' => 'required|integer',
             'fecha_entrada' => 'required|date',
@@ -19,11 +23,43 @@ class EntradaController extends Controller
         ]);
     }
 
-    public function listarEntradas(Request $request){
+    public function listarEntradas(Request $request)
+    {
 
-        $perPage = $request->query('per_page', 10);
-        $entradas = DB::table('entradas')->paginate($perPage);
-        
-        return response()->json($entradas, 200) ;
+        try {
+
+            $perPage = $request->query('per_page', 10);
+            $entradas = DB::table('entradas')->paginate($perPage);
+
+            return response()->json($entradas, 200);
+        } catch (Exception $e) {
+
+            return response()->json([
+                'message' => 'No se puedo mostrar el listado de las entradas',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
+
+    public function listarEntradasDetalle($id) {
+        try{
+
+            $detalleDeFactura = DetalleEntrada::where('entrada_id', $id)->get();
+
+            if ($detalleDeFactura->isEmpty()) {
+                return response()->json(['mensaje' => 'No se encontraron detalles para esta entrada'], 404);
+            }
+
+            return response()->json( $detalleDeFactura, 200);
+
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'No se puede traer la informacion',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    
+
 }

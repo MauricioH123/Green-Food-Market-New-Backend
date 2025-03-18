@@ -26,40 +26,54 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// RUTAS PARA CLIENTE
-Route::get('/cliente',[ClienteController::class, 'listarTodosLosClientes']);
-Route::post('/clientecrear', [ClienteController::class, 'agregarCliente']);
-Route::put('/clienteActualizar/{id}', [ClienteController::class, 'actualizarCliente']);
-Route::get('/cliente/{id}', [ClienteController::class, 'obtenerCliente']);
-Route::delete('/clienteEliminar/{id}', [ClienteController::class, 'eliminarCliente']);
+// RUTAS PARA CLIENTES
+Route::prefix('clientes')->controller(ClienteController::class)->group(function () {
+    Route::get('/', 'listarTodosLosClientes');
+    Route::post('/', 'agregarCliente');
+    Route::get('/{id}', 'obtenerCliente');
+    Route::put('/{id}', 'actualizarCliente');
+    Route::delete('/{id}', 'eliminarCliente');
+});
 
 // RUTAS PARA FACTURAS
+Route::prefix('facturas')->controller(FacturaController::class)->group(function () {
+    Route::get('/', 'listarFacturas');
+    Route::post('/', 'crearFactura');
+    Route::delete('/{id}', 'eliminarFactura');
+});
 
-Route::get('/factura', [FacturaController::class, 'listarFacturas']);
-Route::post('/facturaCrear', [FacturaController::class, 'crearFactura']);
-Route::delete('/facturaEliminar/{id}', [FacturaController::class, 'eliminarFactura']);
+// RUTAS PARA PRODUCTOS
+Route::prefix('productos')->controller(ProductoController::class)->group(function () {
+    Route::get('/', 'listarProductos');
+    Route::post('/', 'crearProducto');
+    Route::put('/{id}', 'actualizarProducto');
+    Route::delete('/{id}', 'eliminarProducto');
+});
 
-// RUTAS DE PRODUCTOS
-Route::get('/productos', [ProductoController::class, 'listarPorductos']);
-Route::post('/producto', [ProductoController::class, 'crearProducto']);
-Route::put('/producto/{id}',[ProductoController::class, 'actualizarPorducto']);
-Route::delete('/producto/{id}',[ProductoController::class, 'eliminarProducto']);
+// RUTAS PARA PROVEEDORES
+Route::prefix('proveedores')->controller(ProveedorController::class)->group(function () {
+    Route::get('/', 'listarProveedores');
+    Route::post('/', 'crearProveedor');
+    Route::put('/{id}', 'actualizarProveedor');
+    Route::delete('/{id}', 'eliminarProveedor');
+});
 
-// RUTA PARA PROVEEDOR
-Route::get('/proveedores', [ProveedorController::class, 'listarProveedores']);
-Route::post('/proveedor', [ProveedorController::class, 'crearProveedor']);
-Route::put('/proveedor/{id}', [ProveedorController::class, 'actualizarProveedor']);
-Route::delete('/proveedor/{id}', [ProveedorController::class, 'eliminarProveedor']);
+// RUTAS PARA TIPOS DE PAGO
+Route::prefix('pagos')->controller(TipoPagoController::class)->group(function () {
+    Route::get('/', 'listarTipoPago');
+    Route::post('/', 'crearTipoPago');
+    Route::put('/{id}', 'actualizarTipoPago');
+    Route::delete('/{id}', 'eliminarTipoPago');
+});
 
-// RUTAS TIPO DE PAGO
-Route::get('/pago', [TipoPagoController::class, 'listarTipoPago']);
-Route::post('/pago', [TipoPagoController::class, 'crearTipoPago']);
-Route::put('/pago/{id}', [TipoPagoController::class, 'actualizarTipoPago']);
-Route::delete('/pago/{id}', [TipoPagoController::class, 'eliminarTipoPago']);
+// RUTAS PARA DETALLE DE PAGO
+Route::prefix('detalle-pago')->controller(DetallePagoController::class)->group(function () {
+    Route::get('/', 'listarEstadosDeFacturas');
+    Route::put('/{factura_id}', 'actualizarDetalleFactura');
+});
 
-// RUTA DETALLE PAGO
-Route::put('/detallePago/{factura_id}', [DetallePagoController::class, 'actualizarDetalleFactura']);
-Route::get("/detallePago", [DetallePagoController::class, "listarEstadosDeFacturas"]);
-
-// RUTA ENTRADAS
-Route::get('/entrada', [EntradaController::class, 'listarEntradas']);
+// RUTAS PARA ENTRADAS
+Route::prefix('entradas')->controller(EntradaController::class)->group(function () {
+    Route::get('/', 'listarEntradas');
+    Route::get('/{id}', 'listarEntradasDetalle');
+});
