@@ -26,4 +26,8 @@ class Producto extends Model
     public function proveedor(){
         return $this->belongsTo(Proveedor::class, 'proveedor_id');
     }
+
+    public function detalleEntarda(){
+        return $this->hasMany(DetalleEntrada::class,'producto_id');
+    }
 }

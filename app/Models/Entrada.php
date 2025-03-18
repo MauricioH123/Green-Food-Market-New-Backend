@@ -10,13 +10,15 @@ class Entrada extends Model
     use HasFactory;
 
     protected $fillable = [
-        'producto_id', // Clave foránea producto
-        'cantidad_entrada',
-        'precio_entrada',
+        'proveedor_id', // Clave foránea producto
         'fecha_entrada',
     ];
 
-    public function producto(){
-        return $this->belongsTo(Producto::class, 'producto_id');
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class,'proveedor_id');
+    }
+
+    public function detalleEntarda(){
+        return $this->hasMany(DetalleEntrada::class,'entrada_id');
     }
 }

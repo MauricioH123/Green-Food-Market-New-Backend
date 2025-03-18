@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleEntrada extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'entrada_id',
+        'producto_id',
+        'precio_compra',
+        'cantidad'
+    ];
+
+    public function entrada(){
+        return $this->belongsTo(Entrada::class,'entrada_id');
+    }
+
+    public function producto(){
+        return $this->belongsTo(Producto::class,"producto_id");
+    }
 }

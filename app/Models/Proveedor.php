@@ -16,4 +16,8 @@ class Proveedor extends Model
     public function producto(){
         return $this->hasMany(Producto::class, 'proveedor_id');
     }
+
+    public function entrada(){
+        return $this->hasMany(Entrada::class,'proveedor_id');
+    }
 }

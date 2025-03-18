@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('entradas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->integer('cantidad_entrada');
-            $table->decimal('precio_entrada');
+            $table->foreignId('proveedor_id')->constrained('proveedors')->onDelete('cascade');
             $table->date('fecha_entrada');
             $table->timestamps();
         });
