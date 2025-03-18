@@ -46,7 +46,9 @@ class EntradaController extends Controller
     public function listarEntradasDetalle($id) {
         try{
 
-            $detalleDeFactura = DetalleEntrada::where('entrada_id', $id)->get();
+            $detalleDeFactura = DetalleEntrada::with('producto:id,nombre_producto')
+            -> where('entrada_id', $id)
+            -> get();
 
             if ($detalleDeFactura->isEmpty()) {
                 return response()->json(['mensaje' => 'No se encontraron detalles para esta entrada'], 404);
