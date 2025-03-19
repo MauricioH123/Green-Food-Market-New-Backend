@@ -8,9 +8,17 @@ use App\Models\Producto;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\EntradaService;
 
 class EntradaController extends Controller
 {
+
+    protected $entradaService;
+    
+    public function __construct(EntradaService $entradaService){
+        $this-> entradaService = $entradaService;
+    }
+
     protected  function validaciones(Request $request)
     {
         $request->validate([
@@ -70,25 +78,12 @@ class EntradaController extends Controller
         try {
             $this->validaciones($request);
 
-            $entrada = Entrada::create([
-                'proveedor_id' => $request->proveedor_id,
-                'fecha_entrada' => $request->fecha_entrada
-            ]);
+            $creacionFactura = $this -> entradaService ->crearEntrdada($request);
 
-            $detalleEntrada = array();
-
-            foreach($request->productos as $producto){
-                $detalleEntrada[] = DetalleEntrada::create([
-                    'entrada_id' => $entrada->id,
-                    'producto_id' => $producto['producto_id'],
-                    'precio_compra' => $producto['precio_compra'],
-                    'cantidad' => $producto['cantidad']
-                ]);
-            }
 
             return response()->json([
                 'message' => 'Creacion de la entrada de forma exitosa',
-                $detalleEntrada
+                $creacionFactura
             ]);
 
         } catch (Exception $e) {
@@ -97,5 +92,13 @@ class EntradaController extends Controller
                 'error' => $e->getMessage()
             ]);
         }
+    }
+
+    public function actualizarEntrada(Request $request, $id){
+
+    }
+
+    public function eliminarEntrada($id){
+        
     }
 }
