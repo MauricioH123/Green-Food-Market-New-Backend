@@ -9,14 +9,16 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\EntradaService;
+use Illuminate\Support\Facades\Redis;
 
 class EntradaController extends Controller
 {
 
     protected $entradaService;
-    
-    public function __construct(EntradaService $entradaService){
-        $this-> entradaService = $entradaService;
+
+    public function __construct(EntradaService $entradaService)
+    {
+        $this->entradaService = $entradaService;
     }
 
     protected  function validaciones(Request $request)
@@ -78,14 +80,13 @@ class EntradaController extends Controller
         try {
             $this->validaciones($request);
 
-            $creacionFactura = $this -> entradaService ->crearEntrdada($request);
+            $creacionFactura = $this->entradaService->crearEntrdada($request);
 
 
             return response()->json([
                 'message' => 'Creacion de la entrada de forma exitosa',
                 $creacionFactura
             ]);
-
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'No se puede crear la entrada',
@@ -94,11 +95,30 @@ class EntradaController extends Controller
         }
     }
 
-    public function actualizarEntrada(Request $request, $id){
+    public function actualizarEntrada(Request $request)
+    {
+        $request->validate([
+            'productos' => 'required|array|min:1',
+            'porductos.*.'
+        ]);
 
+        $resultado = $this->entradaService->actualizacionEntarda($request);
+
+        if ($resultado['error']) {
+            return response()->json($resultado, 400);
+        }
+
+        return response()->json($resultado, 200);
     }
 
-    public function eliminarEntrada($id){
-        
+
+    public function eliminarDetalle($id){
+        $resultado = $this->entradaService->eliminarDetalleEntrada($id);
+
+        if($resultado['error']){
+            return response()->json($resultado, 400);
+        }
+
+        return response()->json($resultado, 200);
     }
 }
