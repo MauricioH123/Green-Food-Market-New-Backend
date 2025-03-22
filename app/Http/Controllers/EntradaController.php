@@ -112,13 +112,13 @@ class EntradaController extends Controller
     }
 
 
-    public function eliminarDetalle($id){
-        $resultado = $this->entradaService->eliminarDetalleEntrada($id);
+    // public function eliminarDetalle($id){
+    //     $resultado = $this->entradaService->eliminarDetalleEntrada($id);
 
-        if($resultado['error']){
-            return response()->json($resultado, 400);
-        }
+    //     if($resultado['error']){
+    //         return response()->json($resultado, 400);
+    //     }
 
-        return response()->json($resultado, 200);
-    }
+    //     return response()->json($resultado, 200);
+    // }
 }

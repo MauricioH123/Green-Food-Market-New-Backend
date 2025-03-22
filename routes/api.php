@@ -79,5 +79,5 @@ Route::prefix('entradas')->controller(EntradaController::class)->group(function 
     Route::post('/', 'creacionEntrada');
     Route::get("/{id}",'actualizarEntrada');
     Route::put('/', 'actualizarEntrada');
-    Route::delete('/{id}', 'eliminarDetalle');
+    // Route::delete('/{id}', 'eliminarDetalle');
 });
