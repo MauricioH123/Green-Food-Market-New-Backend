@@ -60,9 +60,16 @@ class EntradaService
     {
         $productoInventario = Inventario::where('producto_id', $producto['producto_id'])->first();
 
-        if($productoA->id != $producto['id']){
+        if (!$productoInventario) {
+            return;
+        }
+
+        if( $producto['eliminar'] == 1){
             $productoInventario->cantidad -= $producto['cantidad'];
+            $productoInventario->save();
+
             $this->eliminarDetalleEntrada($productoA);
+            return;
         }
 
         $productoInventario->cantidad = ($productoInventario->cantidad - $productoA->cantidad) + $producto['cantidad'];
@@ -77,14 +84,20 @@ class EntradaService
             foreach ($request->productos as $producto) {
                 $productoA = DetalleEntrada::find($producto['id']);
 
+                if (!$productoA) {
+                    continue;
+                }
+
                 $this->actualizarInventario($producto, $productoA);
 
-                $productoA->producto_id = $producto['producto_id'];
-                $productoA->precio_compra = $producto['precio_compra'];
-                $productoA->cantidad = $producto['cantidad'];
-                $productoA->save();
-
-                $productosM[] = $productoA;
+                if($producto['eliminar'] != 1){
+                    $productoA->producto_id = $producto['producto_id'];
+                    $productoA->precio_compra = $producto['precio_compra'];
+                    $productoA->cantidad = $producto['cantidad'];
+                    $productoA->save();
+    
+                    $productosM[] = $productoA;
+                }
             }
 
             return [
