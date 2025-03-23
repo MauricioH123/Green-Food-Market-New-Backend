@@ -62,18 +62,7 @@ class FacturaController extends Controller
 
     public function eliminarFactura($id)
     {
-
-        try {
-            $factura = Factura::find($id);
-            $factura->delete();
-            return response()->json([
-                'message' => 'Factura eliminada correctamente'
-            ], 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error al eliminar la factura',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json($this->facturaService->eliminarFactura($id), 200) ;
+        
     }
 }

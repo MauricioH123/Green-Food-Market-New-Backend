@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Factura;
 use App\Models\DetalleFactura;
 use App\Models\DetallePago;
+use App\Models\Inventario;
 use Exception;
+
 
 class FacturaService
 {
@@ -36,6 +38,29 @@ class FacturaService
         return $detallePago;
     }
 
+    public function actualizarInventario($request){
+        foreach($request->productos as $producto){
+            $inventario = Inventario::where('producto_id', $producto['producto_id'])->first();
+            $inventario->cantidad -= $producto['cantidad'];
+            $inventario->save();
+        }
+    }
+
+    public function eliminarFactura($id){
+        $factura = Factura::find($id);
+        $facturaDetalle = DetalleFactura::where('factura_id', $id)->get();
+        foreach($facturaDetalle as $detalle){
+            $inventario = Inventario::where('producto_id', $detalle->producto_id)->first();
+            $inventario->cantidad += $detalle->cantidad;
+            $inventario ->save();
+        }
+        $factura->delete();
+
+        return [
+            "message"=> "Se elimino con exito la facutura"
+        ];
+    }
+
     public function crearFactura($request)
     {
         try {
@@ -47,6 +72,8 @@ class FacturaService
             $detalleFactura = $this->crearDetalleFactura($factura, $request);
 
             $detallePago = $this->CrearDetallePago($factura, $request);
+
+            $this-> actualizarInventario($request);
 
             return[
                 'error' => false,
