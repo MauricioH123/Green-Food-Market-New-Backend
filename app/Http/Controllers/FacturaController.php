@@ -62,7 +62,13 @@ class FacturaController extends Controller
 
     public function eliminarFactura($id)
     {
-        return response()->json($this->facturaService->eliminarFactura($id), 200) ;
+        $resultado = $this->facturaService->eliminarFactura($id);
+
+        if($resultado['error']){
+            return response()->json($resultado,400);
+        }
+
+        return response()->json($resultado, 200) ;
         
     }
 }

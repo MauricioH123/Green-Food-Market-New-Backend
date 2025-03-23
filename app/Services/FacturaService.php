@@ -28,7 +28,8 @@ class FacturaService
         return $detalleFactura;
     }
 
-    public function CrearDetallePago($factura, $request){
+    public function CrearDetallePago($factura, $request)
+    {
         $detallePago = DetallePago::create([
             'factura_id' => $factura->id,
             'tipo_pago_id' => $request->tipo_pago_id,
@@ -38,27 +39,38 @@ class FacturaService
         return $detallePago;
     }
 
-    public function actualizarInventario($request){
-        foreach($request->productos as $producto){
+    public function actualizarInventario($request)
+    {
+        foreach ($request->productos as $producto) {
             $inventario = Inventario::where('producto_id', $producto['producto_id'])->first();
             $inventario->cantidad -= $producto['cantidad'];
             $inventario->save();
         }
     }
 
-    public function eliminarFactura($id){
-        $factura = Factura::find($id);
-        $facturaDetalle = DetalleFactura::where('factura_id', $id)->get();
-        foreach($facturaDetalle as $detalle){
-            $inventario = Inventario::where('producto_id', $detalle->producto_id)->first();
-            $inventario->cantidad += $detalle->cantidad;
-            $inventario ->save();
-        }
-        $factura->delete();
+    public function eliminarFactura($id)
+    {
 
-        return [
-            "message"=> "Se elimino con exito la facutura"
-        ];
+        try {
+            $factura = Factura::find($id);
+            $facturaDetalle = DetalleFactura::where('factura_id', $id)->get();
+            foreach ($facturaDetalle as $detalle) {
+                $inventario = Inventario::where('producto_id', $detalle->producto_id)->first();
+                $inventario->cantidad += $detalle->cantidad;
+                $inventario->save();
+            }
+            $factura->delete();
+
+            return [
+                "error" => false,
+                "message" => "Se elimino con exito la facutura"
+            ];
+        } catch (Exception $e) {
+            return [
+                "error" => true,
+                "message" => $e->getMessage()
+            ];
+        }
     }
 
     public function crearFactura($request)
@@ -73,9 +85,9 @@ class FacturaService
 
             $detallePago = $this->CrearDetallePago($factura, $request);
 
-            $this-> actualizarInventario($request);
+            $this->actualizarInventario($request);
 
-            return[
+            return [
                 'error' => false,
                 'message' => 'Factura creada correctamente',
                 'factura' => $factura,
