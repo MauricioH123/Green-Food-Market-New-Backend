@@ -30,4 +30,8 @@ class Producto extends Model
     public function detalleEntarda(){
         return $this->hasMany(DetalleEntrada::class,'producto_id');
     }
+
+    public function detalleFactura(){
+        return $this->hasMany(DetalleFactura::class, 'producto_id');
+    }
 }

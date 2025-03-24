@@ -40,6 +40,7 @@ Route::prefix('facturas')->controller(FacturaController::class)->group(function 
     Route::get('/', 'listarFacturas');
     Route::post('/', 'crearFactura');
     Route::delete('/{id}', 'eliminarFactura');
+    Route::get('/{id}', 'listarDetalle');
 });
 
 // RUTAS PARA PRODUCTOS
@@ -79,5 +80,4 @@ Route::prefix('entradas')->controller(EntradaController::class)->group(function 
     Route::post('/', 'creacionEntrada');
     Route::get("/{id}",'actualizarEntrada');
     Route::put('/', 'actualizarEntrada');
-    // Route::delete('/{id}', 'eliminarDetalle');
 });

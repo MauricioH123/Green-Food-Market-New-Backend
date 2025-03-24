@@ -71,4 +71,13 @@ class FacturaController extends Controller
         return response()->json($resultado, 200) ;
         
     }
+
+    public function listarDetalle($id){
+        $resultado = $this->facturaService->listarDetalleFactura($id);
+
+        return response()->json(
+            $resultado,
+            200
+        );
+    }
 }

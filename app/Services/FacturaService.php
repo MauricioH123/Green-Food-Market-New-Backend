@@ -101,4 +101,16 @@ class FacturaService
             ];
         }
     }
+
+    public function listarDetalleFactura($id){
+        $factura = Factura::with([
+            'cliente:id,nombre,direccion',
+            'detalleFactura:id,factura_id,producto_id,cantidad,precio_unitario',
+            'detalleFactura.producto:id,nombre_producto', // Relación con productos
+            'detallePago:id,factura_id,tipo_pago_id,estado',
+            'detallePago.tipoPago:id,tipo' // Relación con tipo de pago
+        ])->findOrFail($id);
+
+        return $factura;
+    }
 }
