@@ -23,4 +23,9 @@ class DetalleEntrada extends Model
     public function producto(){
         return $this->belongsTo(Producto::class,"producto_id");
     }
+
+    public function getPrecioCompraAttribute($value)
+    {
+        return number_format($value / 100, 2, '.', '');
+    }
 }

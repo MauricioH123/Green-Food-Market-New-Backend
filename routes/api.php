@@ -76,7 +76,7 @@ Route::prefix('detalle-pago')->controller(DetallePagoController::class)->group(f
 // RUTAS PARA ENTRADAS
 Route::prefix('entradas')->controller(EntradaController::class)->group(function () {
     Route::get('/', 'listarEntradas');
-    Route::get('/{id}', 'listarEntradasDetalle');
+    Route::get('/{id}/detalle', 'listarEntradasDetalle');
     Route::post('/', 'creacionEntrada');
     Route::get("/{id}",'actualizarEntrada');
     Route::put('/', 'actualizarEntrada');
