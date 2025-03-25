@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('proveedor_id')->constrained('proveedors')->onDelete('cascade');
             $table->string('nombre_producto');
-            $table->decimal('precio_venta',12, 3);
+            $table->bigInteger('precio_venta');
             $table->timestamps();
         });
     }
