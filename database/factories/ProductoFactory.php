@@ -19,7 +19,7 @@ class ProductoFactory extends Factory
         return [
             'proveedor_id'=> $this->faker->numberBetween(1, 10),
             'nombre_producto' => $this->faker->name(),
-            'precio_venta' => $this->faker->numberBetween(5000, 50000) * 100,,
+            'precio_venta' => $this->faker->numberBetween(5000, 50000) * 100,
         ];
     }
 }
