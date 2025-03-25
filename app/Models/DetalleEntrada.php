@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class DetalleEntrada extends Model
 {
@@ -24,8 +25,11 @@ class DetalleEntrada extends Model
         return $this->belongsTo(Producto::class,"producto_id");
     }
 
-    public function getPrecioCompraAttribute($value)
-    {
-        return number_format($value / 100, 2, '.', '');
+    // ACCESOR Y MUTATOR PARA CONVERTIR EL VALOR DE PRECIO DE COMPRA EN VALORES NORMALES
+    protected function precioCompra():Attribute{
+        return Attribute::make(
+            get: fn ($value) => number_format($value / 100, 2, '.', ''),
+            set: fn ($value) => intval($value * 100)
+        );
     }
 }

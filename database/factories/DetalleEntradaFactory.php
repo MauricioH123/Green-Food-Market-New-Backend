@@ -19,7 +19,7 @@ class DetalleEntradaFactory extends Factory
         return [
             'entrada_id'=> $this->faker->numberBetween(1, 10),
             'producto_id' => $this->faker->numberBetween(1,10),
-            'precio_compra' => $this->faker->randomFloat(3, 5000, 50000),
+            'precio_compra' => $this->faker->numberBetween(5000, 50000) * 100,
             'cantidad' => $this->faker-> numberBetween(1, 10),
         ];
     }
