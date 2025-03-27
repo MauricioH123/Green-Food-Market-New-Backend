@@ -30,12 +30,19 @@ class FacturaService
 
     public function CrearDetallePago($factura, $request)
     {
-        $detallePago = DetallePago::create([
-            'factura_id' => $factura->id,
-            'tipo_pago_id' => $request->tipo_pago_id,
-            'estado' => $request->estado
-        ]);
-
+        if ($request->tipo_pago_id == 1) {
+            $detallePago = DetallePago::create([
+                'factura_id' => $factura->id,
+                'tipo_pago_id' => $request->tipo_pago_id,
+                'estado' => 0
+            ]);
+        } else {
+            $detallePago = DetallePago::create([
+                'factura_id' => $factura->id,
+                'tipo_pago_id' => $request->tipo_pago_id,
+                'estado' => 1
+            ]);
+        }
         return $detallePago;
     }
 
@@ -102,7 +109,8 @@ class FacturaService
         }
     }
 
-    public function listarDetalleFactura($id){
+    public function listarDetalleFactura($id)
+    {
         $factura = Factura::with([
             'cliente:id,nombre,direccion',
             'detalleFactura:id,factura_id,producto_id,cantidad,precio_unitario',

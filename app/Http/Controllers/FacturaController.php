@@ -33,8 +33,7 @@ class FacturaController extends Controller
             'productos.*.producto_id' => 'required|integer',
             'productos.*.cantidad' => 'required|integer|min:1',
             'productos.*.precio_unitario' => 'required|numeric|min:0',
-            'tipo_pago_id' => 'required|integer',
-            'estado' => 'required|boolean'
+            'tipo_pago_id' => 'required|integer'
         ]);
     }
 
