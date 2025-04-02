@@ -32,60 +32,58 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // RUTAS PARA CLIENTES
-Route::prefix('clientes')->controller(ClienteController::class)->group(function () {
-    Route::get('/', 'listarTodosLosClientes');
-    Route::post('/', 'agregarCliente');
-    Route::get('/{id}', 'obtenerCliente');
-    Route::put('/{id}', 'actualizarCliente');
-    Route::delete('/{id}', 'eliminarCliente');
-});
+    Route::prefix('clientes')->controller(ClienteController::class)->group(function () {
+        Route::get('/', 'listarTodosLosClientes');
+        Route::post('/', 'agregarCliente');
+        Route::get('/{id}', 'obtenerCliente');
+        Route::put('/{id}', 'actualizarCliente');
+        Route::delete('/{id}', 'eliminarCliente');
+    });
 
-// RUTAS PARA FACTURAS
-Route::prefix('facturas')->controller(FacturaController::class)->group(function () {
-    Route::get('/', 'listarFacturas');
-    Route::post('/', 'crearFactura');
-    Route::delete('/{id}', 'eliminarFactura');
-    Route::get('/{id}', 'listarDetalle');
-});
+    // RUTAS PARA FACTURAS
+    Route::prefix('facturas')->controller(FacturaController::class)->group(function () {
+        Route::get('/', 'listarFacturas');
+        Route::post('/', 'crearFactura');
+        Route::delete('/{id}', 'eliminarFactura');
+        Route::get('/{id}', 'listarDetalle');
+    });
 
-// RUTAS PARA PRODUCTOS
-Route::prefix('productos')->controller(ProductoController::class)->group(function () {
-    Route::get('/', 'listarProductos');
-    Route::post('/', 'crearProducto');
-    Route::put('/{id}', 'actualizarProducto');
-    Route::delete('/{id}', 'eliminarProducto');
-});
+    // RUTAS PARA PRODUCTOS
+    Route::prefix('productos')->controller(ProductoController::class)->group(function () {
+        Route::get('/', 'listarProductos');
+        Route::post('/', 'crearProducto');
+        Route::put('/{id}', 'actualizarProducto');
+        Route::delete('/{id}', 'eliminarProducto');
+    });
 
-// RUTAS PARA PROVEEDORES
-Route::prefix('proveedores')->controller(ProveedorController::class)->group(function () {
-    Route::get('/', 'listarProveedores');
-    Route::post('/', 'crearProveedor');
-    Route::put('/{id}', 'actualizarProveedor');
-    Route::delete('/{id}', 'eliminarProveedor');
-});
+    // RUTAS PARA PROVEEDORES
+    Route::prefix('proveedores')->controller(ProveedorController::class)->group(function () {
+        Route::get('/', 'listarProveedores');
+        Route::post('/', 'crearProveedor');
+        Route::put('/{id}', 'actualizarProveedor');
+        Route::delete('/{id}', 'eliminarProveedor');
+    });
 
-// RUTAS PARA TIPOS DE PAGO
-Route::prefix('pagos')->controller(TipoPagoController::class)->group(function () {
-    Route::get('/', 'listarTipoPago');
-    Route::post('/', 'crearTipoPago');
-    Route::put('/{id}', 'actualizarTipoPago');
-    Route::delete('/{id}', 'eliminarTipoPago');
-});
+    // RUTAS PARA TIPOS DE PAGO
+    Route::prefix('pagos')->controller(TipoPagoController::class)->group(function () {
+        Route::get('/', 'listarTipoPago');
+        Route::post('/', 'crearTipoPago');
+        Route::put('/{id}', 'actualizarTipoPago');
+        Route::delete('/{id}', 'eliminarTipoPago');
+    });
 
-// RUTAS PARA DETALLE DE PAGO
-Route::prefix('detalle-pago')->controller(DetallePagoController::class)->group(function () {
-    Route::get('/', 'listarEstadosDeFacturas');
-    Route::put('/{factura_id}', 'actualizarDetalleFactura');
-});
+    // RUTAS PARA DETALLE DE PAGO
+    Route::prefix('detalle-pago')->controller(DetallePagoController::class)->group(function () {
+        Route::get('/', 'listarEstadosDeFacturas');
+        Route::put('/{factura_id}', 'actualizarDetalleFactura');
+    });
 
-// RUTAS PARA ENTRADAS
-Route::prefix('entradas')->controller(EntradaController::class)->group(function () {
-    Route::get('/', 'listarEntradas');
-    Route::get('/{id}/detalle', 'listarEntradasDetalle');
-    Route::post('/', 'creacionEntrada');
-    Route::get("/{id}",'actualizarEntrada');
-    Route::put('/', 'actualizarEntrada');
+    // RUTAS PARA ENTRADAS
+    Route::prefix('entradas')->controller(EntradaController::class)->group(function () {
+        Route::get('/', 'listarEntradas');
+        Route::get('/{id}/detalle', 'listarEntradasDetalle');
+        Route::post('/', 'creacionEntrada');
+        Route::get("/{id}", 'actualizarEntrada');
+        Route::put('/', 'actualizarEntrada');
+    });
 });
-
-});
-
