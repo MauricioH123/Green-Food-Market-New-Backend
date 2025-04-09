@@ -33,11 +33,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // RUTAS PARA CLIENTES
     Route::prefix('clientes')->controller(ClienteController::class)->group(function () {
+        Route::get('/facturas', 'listarClientes');
         Route::get('/', 'listarTodosLosClientes');
         Route::post('/', 'agregarCliente');
         Route::get('/{id}', 'obtenerCliente');
         Route::put('/{id}', 'actualizarCliente');
         Route::delete('/{id}', 'eliminarCliente');
+        
     });
 
     // RUTAS PARA FACTURAS
@@ -87,3 +89,4 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/', 'actualizarEntrada');
     });
 });
+

@@ -16,6 +16,11 @@ class ClienteController extends Controller
         return response()->json($clientes);
     }
 
+    public function listarClientes(){
+        $clientes = DB::table('clientes')->get();
+        return response()->json($clientes);
+    }
+
     
     // este metodo es para crear un cliente
     public function agregarCliente(Request $request){
