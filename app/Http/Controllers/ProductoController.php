@@ -25,6 +25,11 @@ class ProductoController extends Controller
         return response()->json($productos, 200);
     }
 
+    public function listarTodosLosProductos(){
+        $productos = DB::table('productos')->get();
+        return response()->json($productos, 200);
+    }
+
     public function crearProducto(Request $request)
     {
        
