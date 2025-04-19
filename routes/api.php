@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // RUTAS PARA PROVEEDORES
     Route::prefix('proveedores')->controller(ProveedorController::class)->group(function () {
+        Route::get('/factura', 'listarTodosLosProveedores');
         Route::get('/', 'listarProveedores');
         Route::post('/', 'crearProveedor');
         Route::put('/{id}', 'actualizarProveedor');

@@ -37,6 +37,17 @@ class ProveedorController extends Controller
         }
     }
 
+    public function listarTodosLosProveedores(){
+        try{
+            $proveedores = DB::table('proveedors')->get();
+            return response()->json($proveedores, 200);
+        }catch(Exception $e){
+            return response()->json(
+            ['message' => 'Error al listar los proveedores'],
+            $e->getMessage());
+        }
+    }
+
     public function crearProveedor(Request $request)
     {
 
