@@ -16,9 +16,8 @@ class TipoPagoController extends Controller
     }
     
 
-    public function listarTipoPago(Request $request){
-        $perPage = $request->query('per_page', 10);
-        $tipoPagos = DB::table('tipo_pagos')->paginate($perPage);
+    public function listarTipoPago(){
+        $tipoPagos = DB::table('tipo_pagos')->get();
         return response()->json( $tipoPagos, 200);
     }
 

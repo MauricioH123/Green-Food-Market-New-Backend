@@ -29,7 +29,7 @@ class EntradaController extends Controller
             'productos' => 'required|array|min:1',
             'productos.*.producto_id' => 'required|integer',
             'productos.*.precio_compra' => 'required|numeric|min:0',
-            'productos.*.cantidad' => 'required|integer|min:1',
+            'productos.*.cantidad' => 'required|integer|min:1', 
         ]);
     }
 
