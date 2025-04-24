@@ -40,7 +40,14 @@ class FacturaController extends Controller
     public  function listarFacturas(Request $request)
     {
         $perPage = $request->query('per_page', 10);
-        $facturas = DB::table('facturas')->paginate($perPage);
+        $facturas = DetallePago::with('factura:id,cliente_id', 'factura.cliente:id,nombre')
+        ->select('id', 'factura_id', 'estado')
+        ->orderBy(
+            Factura::select('id')
+            ->whereColumn('facturas.id', 'detalle_pagos.factura_id')
+            ->limit(1)
+        )
+        ->paginate($perPage);
         return response()->json($facturas, 200);
     }
 
