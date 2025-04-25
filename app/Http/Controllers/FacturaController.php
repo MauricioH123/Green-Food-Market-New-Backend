@@ -39,15 +39,18 @@ class FacturaController extends Controller
 
     public  function listarFacturas(Request $request)
     {
-        $perPage = $request->query('per_page', 10);
-        $facturas = DetallePago::with('factura:id,cliente_id', 'factura.cliente:id,nombre')
-        ->select('id', 'factura_id', 'estado')
-        ->orderBy(
-            Factura::select('id')
-            ->whereColumn('facturas.id', 'detalle_pagos.factura_id')
-            ->limit(1)
+        $facturas = DB::table('detalle_pagos as dp')
+        ->select(
+            'f.id', 
+            'c.nombre', 
+            DB::raw('SUM(d.cantidad * d.precio_unitario) AS total'),
+            'dp.estado'
         )
-        ->paginate($perPage);
+        ->join('facturas as f', 'f.id', '=', 'dp.factura_id')
+        ->join('detalle_facturas as d', 'f.id', '=', 'd.factura_id')
+        ->join('clientes as c', 'f.cliente_id', '=', 'c.id')
+        ->groupBy('dp.factura_id', 'c.nombre', 'dp.estado')
+        ->paginate(10); 
         return response()->json($facturas, 200);
     }
 
@@ -70,15 +73,15 @@ class FacturaController extends Controller
     {
         $resultado = $this->facturaService->eliminarFactura($id);
 
-        if($resultado['error']){
-            return response()->json($resultado,400);
+        if ($resultado['error']) {
+            return response()->json($resultado, 400);
         }
 
-        return response()->json($resultado, 200) ;
-        
+        return response()->json($resultado, 200);
     }
 
-    public function listarDetalle($id){
+    public function listarDetalle($id)
+    {
         $resultado = $this->facturaService->listarDetalleFactura($id);
 
         return response()->json(
