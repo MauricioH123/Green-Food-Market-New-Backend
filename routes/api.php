@@ -44,10 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // RUTAS PARA FACTURAS
     Route::prefix('facturas')->controller(FacturaController::class)->group(function () {
+        Route::get('/{id}', 'listarDetalle');
         Route::get('/', 'listarFacturas');
         Route::post('/', 'crearFactura');
         Route::delete('/{id}', 'eliminarFactura');
-        Route::get('/{id}', 'listarDetalle');
     });
 
     // RUTAS PARA PRODUCTOS
