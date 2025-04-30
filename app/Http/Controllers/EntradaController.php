@@ -37,11 +37,17 @@ class EntradaController extends Controller
     {
 
         try {
-
-            $perPage = $request->query('per_page', 10);
-            $entradas = Entrada::with('proveedor:id,nombre_proveedor')
-                ->select('proveedor_id', 'fecha_entrada')
-                ->paginate($perPage);
+            $entradas = DB::table('detalle_entradas as da')
+            ->select(
+                'en.id',
+                'pr.nombre_proveedor',
+                'en.fecha_entrada',
+                DB::raw('SUM(da.cantidad * da.precio_compra) AS total')
+            )
+            ->join('entradas as en', 'en.id', '=', 'da.entrada_id')
+            ->join('proveedors as pr','pr.id', '=', 'en.proveedor_id')
+            ->groupBy('en.id','pr.nombre_proveedor','en.fecha_entrada')
+            ->paginate(10);
 
             return response()->json($entradas, 200);
         } catch (Exception $e) {
