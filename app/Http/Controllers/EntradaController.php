@@ -63,14 +63,6 @@ class EntradaController extends Controller
     {
         try {
 
-            // $detalleDeFactura = DetalleEntrada::with([
-            //     'entrada:id,proveedor_id,fecha_entrada',
-            //     'entrada.proveedor:id,nombre_proveedor',
-            //     'producto:id,nombre_producto',
-            // ])->where('entrada_id', $id)
-            // ->get(); // Esto devuelve una colección;
-
-
             $detalleDeFactura = DB::table('detalle_entradas as da')
             ->select(
                 'da.entrada_id',

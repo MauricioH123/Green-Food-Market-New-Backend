@@ -11,6 +11,7 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InventarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', 'creacionEntrada');
         Route::get("/{id}", 'actualizarEntrada');
         Route::put('/', 'actualizarEntrada');
+    });
+
+    Route::prefix('inventario')->controller(InventarioController::class)->group(function (){
+        Route::get('/', 'listarProductosInventario');
     });
 });
 
