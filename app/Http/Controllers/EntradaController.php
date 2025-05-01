@@ -63,15 +63,53 @@ class EntradaController extends Controller
     {
         try {
 
-            $detalleDeFactura = DetalleEntrada::with('producto:id,nombre_producto')
-                ->where('entrada_id', $id)
-                ->get();
+            // $detalleDeFactura = DetalleEntrada::with([
+            //     'entrada:id,proveedor_id,fecha_entrada',
+            //     'entrada.proveedor:id,nombre_proveedor',
+            //     'producto:id,nombre_producto',
+            // ])->where('entrada_id', $id)
+            // ->get(); // Esto devuelve una colección;
+
+
+            $detalleDeFactura = DB::table('detalle_entradas as da')
+            ->select(
+                'da.entrada_id',
+                'pr.nombre_proveedor',
+                'en.fecha_entrada',
+                'pd.nombre_producto',
+                'da.precio_compra',
+                'da.cantidad'
+            )
+            ->join('entradas as en', 'en.id', '=', 'da.entrada_id')
+            ->join('proveedors as pr', 'pr.id', '=', 'en.proveedor_id')
+            ->join('productos as pd', 'pd.id', '=', 'da.producto_id')
+            ->where('da.entrada_id',$id)->get();
+
+            $entrada = null;
+            $productos = [];
+
+            foreach($detalleDeFactura as $detalle){
+                if(!$entrada){
+                    $entrada = [
+                        'entrada_id'=> $detalle->entrada_id,
+                        'fecha_entrada' => $detalle->fecha_entrada,
+                        'nombre_proveedor' => $detalle->nombre_proveedor,
+                        'productos' => []
+                    ];
+                }
+
+                $entrada['productos'][] = [
+                    'nombre_producto'=>$detalle->nombre_producto,
+                    'precio_compra' => $detalle->precio_compra,
+                    'cantidad' => $detalle->cantidad
+                ];
+            }
 
             if ($detalleDeFactura->isEmpty()) {
                 return response()->json(['mensaje' => 'No se encontraron detalles para esta entrada'], 404);
             }
 
-            return response()->json($detalleDeFactura, 200);
+            return response()->json($entrada, 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'No se puede traer la informacion',
