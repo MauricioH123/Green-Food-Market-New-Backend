@@ -13,7 +13,7 @@ class ProductoController extends Controller
         $request->validate([
             'proveedor_id' => 'required|integer',
             'nombre_producto' => 'required|string',
-            'precio_venta' => 'required|numeric'
+            'precio_venta' => 'numeric'
         ]);
     }
 
@@ -65,7 +65,7 @@ class ProductoController extends Controller
 
             $producto -> proveedor_id = $request -> proveedor_id;
             $producto -> nombre_producto = $request -> nombre_producto;
-            $producto -> precio_venta = $request->precio_venta;
+            // $producto -> precio_venta = $request->precio_venta;
 
             $producto->save();
 
@@ -83,5 +83,18 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->delete();
         return response()->json('Producto eliminado', 200);
+    }
+
+    public function detalleProducto($id){
+        $producto = DB::table('productos')
+        ->select([
+            'productos.nombre_producto',
+            'proveedors.id',
+            'proveedors.nombre_proveedor'
+        ])
+        ->join('proveedors', 'proveedors.id','=', 'productos.proveedor_id')
+        ->where('productos.id', $id)->get();
+
+        return response()->json($producto);
     }
 }
