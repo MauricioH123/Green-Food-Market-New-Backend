@@ -26,10 +26,10 @@ class ProveedorController extends Controller
         try {
             $perPage = $request->query('per_page', 10);
             $proveedores = DB::table('proveedors')->paginate($perPage);
-            return response()->json([
+            return response()->json(
                 // 'message' => 'Listado de los proveedores',
                 $proveedores
-            ]);
+            );
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error al listar los proveedores'
@@ -112,5 +112,13 @@ class ProveedorController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getProveedor($id){
+        $proveedor = DB::table('proveedors')
+        ->select( ['id', 'nombre_proveedor'])
+        ->where('id', $id)->first();
+        
+        return response()->json($proveedor, 200) ;
     }
 }
