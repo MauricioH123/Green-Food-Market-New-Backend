@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Factura;
 use App\Models\DetalleFactura;
+use Database\Factories\FacturaFactory;
 use Exception;
 
 class FacturaController extends Controller
@@ -40,17 +41,17 @@ class FacturaController extends Controller
     public  function listarFacturas(Request $request)
     {
         $facturas = DB::table('detalle_pagos as dp')
-        ->select(
-            'f.id', 
-            'c.nombre', 
-            DB::raw('SUM(d.cantidad * d.precio_unitario) AS total'),
-            'dp.estado'
-        )
-        ->join('facturas as f', 'f.id', '=', 'dp.factura_id')
-        ->join('detalle_facturas as d', 'f.id', '=', 'd.factura_id')
-        ->join('clientes as c', 'f.cliente_id', '=', 'c.id')
-        ->groupBy('dp.factura_id', 'c.nombre', 'dp.estado')
-        ->paginate(10); 
+            ->select(
+                'f.id',
+                'c.nombre',
+                DB::raw('SUM(d.cantidad * d.precio_unitario) AS total'),
+                'dp.estado'
+            )
+            ->join('facturas as f', 'f.id', '=', 'dp.factura_id')
+            ->join('detalle_facturas as d', 'f.id', '=', 'd.factura_id')
+            ->join('clientes as c', 'f.cliente_id', '=', 'c.id')
+            ->groupBy('dp.factura_id', 'c.nombre', 'dp.estado')
+            ->paginate(10);
         return response()->json($facturas, 200);
     }
 
@@ -88,5 +89,24 @@ class FacturaController extends Controller
             $resultado,
             200
         );
+    }
+
+    public function listarFacturaTotal()
+    {
+        $FacturaTotal = DB::table('detalle_pagos as dp')
+            ->select(
+                DB::raw("DATE_FORMAT(f.fecha, '%Y-%m') as mes_anio"),
+                'c.nombre',
+                DB::raw('SUM(d.cantidad * d.precio_unitario) AS total'),
+                'dp.estado'
+            )
+            ->join('facturas as f', 'f.id', '=', 'dp.factura_id')
+            ->join('detalle_facturas as d', 'f.id', '=', 'd.factura_id')
+            ->join('clientes as c', 'f.cliente_id', '=', 'c.id')
+            ->groupBy(DB::raw("DATE_FORMAT(f.fecha, '%Y-%m')"), 'c.nombre', 'dp.estado')
+            ->orderBy(DB::raw("DATE_FORMAT(f.fecha, '%Y-%m')"))
+            ->get();
+
+        return response()->json($FacturaTotal, 200);
     }
 }

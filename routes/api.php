@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // RUTAS PARA FACTURAS
     Route::prefix('facturas')->controller(FacturaController::class)->group(function () {
+        Route::get('/total', 'listarFacturaTotal');
         Route::get('/{id}', 'listarDetalle');
         Route::get('/', 'listarFacturas');
         Route::post('/', 'crearFactura');
@@ -54,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // RUTAS PARA PRODUCTOS
     Route::prefix('productos')->controller(ProductoController::class)->group(function () {
         Route::get('/factura','listarTodosLosProductos');
+        Route::get('/total', 'totalProductosVendidos');
         Route::get('/{id}','detalleProducto' );
         Route::get('/', 'listarProductos');
         Route::post('/', 'crearProducto');

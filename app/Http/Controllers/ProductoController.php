@@ -97,4 +97,16 @@ class ProductoController extends Controller
 
         return response()->json($producto);
     }
+
+    public function totalProductosVendidos(){
+        $totalProductos = DB::table('detalle_facturas', 'df',)
+        ->select('pd.nombre_producto', 
+        DB::raw('SUM(df.cantidad) AS total_vendido')
+        )
+        ->join('productos as pd', 'df.producto_id', '=', 'pd.id' )
+        ->groupBy('df.producto_id', 'pd.nombre_producto')->get()
+        ;
+
+        return response()->json($totalProductos, 200);
+    }
 }
