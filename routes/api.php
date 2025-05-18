@@ -11,6 +11,7 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CorreoController;
 use App\Http\Controllers\InventarioController;
 
 /*
@@ -98,6 +99,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('inventario')->controller(InventarioController::class)->group(function (){
         Route::get('/', 'listarProductosInventario');
+    });
+
+    Route::prefix('correo')->controller(CorreoController::class)->group( function (){
+        Route::get('/{id}','enviar');
     });
 });
 
